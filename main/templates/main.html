@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <table>
+    <nav class="navbar navbar-expanded-lg bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white font-monospace" href="#">Eryawww</a>
+
+            <div>
+                <a class="navbar-brand text-white" href="{% url 'main:create_product' %}">
+                    <button class="btn rounded btn-primary fw-semibold">Add Product</button>
+                </a>
+                <a class="navbar-brand text-white" href="/logout">
+                    <button class="btn rounded btn-primary fw-semibold">Log out</button>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <table class="table">
         <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Date Added</th>
+            <th class="col">Name</th>
+            <th class="col">Price</th>
+            <th class="col">Description</th>
+            <th class="col">Date Added</th>
+            <th class="col">Edit</th>
+            <th class="col">Delete</th>
         </tr>
 
         {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
@@ -17,22 +35,24 @@
                 <td>{{product.price}}</td>
                 <td>{{product.description}}</td>
                 <td>{{product.date_added}}</td>
+                <td>
+                    <a href="{% url 'main:edit_product' product.pk %}">
+                        <button>
+                            Edit
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'main:delete_product' product.pk %}">
+                          <button>
+                              Delete
+                          </button>
+                      </a>
+                </td>
             </tr>
         {% endfor %}
     </table>
     <br/>
     <h5>Sesi terakhir login: {{ last_login }}</h5>
-
-    <a href="{% url 'main:create_product' %}">
-        <button>
-            Add New Product
-        </button>
-    </a>
-
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a>
 
 {% endblock content %}
